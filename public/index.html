@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <title>Breaking News</title>
+
+  <style>
+
+  body{
+    background-color: #5c97bf;
+    align-content: center;
+  }
+
+  #wrapper{
+    align-content: center;
+    padding-top: 10%;
+    text-align: center;
+    width: 960px;
+    margin: 0 auto
+  }
+
+  #comments{
+    border-style: double;
+    border-width: 5px;
+    width: 35%;
+    height: 20em;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  #article{
+    border-style: double;
+    border-width: 5px;
+    width: 90%;
+    height:10em;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1em;
+  }
+
+  #dbComments{
+    border-style: inset;
+    border-width: 5px;
+    width: 95%;
+    height: 35%;
+  }
+
+  input {
+    width:95%;
+    height:30px;
+    font-size: 18px;
+  }
+  </style>
+</head>
+<body>
+      <div id="wrapper">
+        <h1>Breaking News! </h1>
+          <h2><i>Scraping Together Up to the Minute News Coverage!</i></h2>
+      <div id="article">
+          
+      </div>
+
+      <div id="comments">
+
+          <table id="dbComments">
+              <button type="submit" id="delete">Delete</button>
+          </table>
+
+          <form id="enterComment">
+
+              <input type="text" id="comment" placeholder="Enter Comment"/>
+
+              <button type="submit" id="addComment">Add Comment</button>
+
+          </form>
+      
+      </div>
+
+    </div>
+  </div>
+  
+<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
