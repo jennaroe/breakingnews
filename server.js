@@ -18,12 +18,12 @@ app.use(express.static('public'));
 
 // mongojs configuration
 var mongojs = require('mongojs');
-var databaseUrl = "news";
+var databaseUrl = "mongodb://heroku_ghcb8mbj:lcc3nf8fs9aq2mam4fccjd6kqa@ds145395.mlab.com:45395/heroku_ghcb8mbj";
 var collections = ["articles", "comments"];
 
 // hook our mongojs config to the db var
-var db = mongojs(process.argv.MONGODB_URI);
-// var db = mongojs(databaseUrl, collections);
+// var db = mongojs(process.argv.MONGODB_URI);
+var db = mongojs(databaseUrl, collections);
 db.on('error', function(err) {
   console.log('Database Error:', err);
 });
