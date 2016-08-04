@@ -7,6 +7,7 @@ $('#addComment').on('click', function(){
     url: '/submit',
     dataType: 'json',
     data: {
+      id: $('#articleTitle').attr('data-id'),
       comment: $('#comment').val(),
       created: Date.now()
     }
@@ -20,23 +21,9 @@ $('#addComment').on('click', function(){
   return false;
 });
 
-
-// refresh box for new article 
-
-
-$(document).on('click', '.article', function(){
-    var thisId = $(this).attr('data-id');
-    $.ajax({
-      type: "GET",
-      url: '/article/' + thisId,
-    });
-    $(this).parents().remove();
-    getComment();
-});
-
 //Delete comment 
 
-$('#delete').on('click', '.comment', function(){
+$('.delete').on('click', '.comment', function(){
     var thisId = $(this).attr('data-id');
     $.ajax({
       type: "POST",
@@ -47,6 +34,18 @@ $('#delete').on('click', '.comment', function(){
 });
 
 
+// refresh box for new article 
+
+
+// $(document).on('click', '.article', function(){
+//     var thisId = $(this).attr('data-id');
+//     $.ajax({
+//       type: "GET",
+//       url: '/article/' + thisId,
+//     });
+//     $(this).parents().remove();
+//     getComment();
+// });
 
 
 
@@ -56,7 +55,7 @@ $('#delete').on('click', '.comment', function(){
 function getComment(){
   $('#dbComments').empty();
   $.getJSON('/comment', function(data) {
-    for (var i = 0; i<data.length; i++){
+    for (var i = 0; i< data.length; i++){
       $('#dbComments').prepend('<tr><td>' + data[i].comment + '</td>' + '</td><td><button class="delete" data-id="' +data[i]._id+ '">Delete</button></td></tr>');
       console.log(data, "IMM DATTTTTAAA")
     }
@@ -66,9 +65,8 @@ function getComment(){
 function getArticle(){
   $('#article').empty();
   $.getJSON('/article', function(data) {
-    for (var i = 0; i<= 1; i++){
-      $('#article').prepend(data[i].title);
-    }
+    console.log(data)
+    $('#article').prepend('<div id="articleTitle" data-id="'+ data[0]._id + '" >'+data[0].title+'</div>');
   });
 }
 
