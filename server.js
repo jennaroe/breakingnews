@@ -36,29 +36,37 @@ app.get('/', function(req, res) {
   res.send(index.html);
 });
 
-
-app.post('/data', function(req, res) { 
+app.get('/data', function(req, res) { 
 	request('https://www.buzzfeed.com/', function (error, response, html) {
+
 		var $ = cheerio.load(html);
 		var result = [];
-
+		
 		$('h2.lede__title').each(function(i, element) {
+
+		console.log(element,"!!!!!");
 
 	      var title = $(this).text();
 	      var link = $(this).find('a').attr('href');
-	      var content = $(this).find('p.lede__kicker').text();
+	      var content = $(this).find('.p.lede__kicker').text();
 
-	      result.push({
-	        title: title,
-	        url: link,
-	        content: content
-	      })
+	      		
 
+	      if (title !== '') {
+	      		result.push({
+	       		title: title,
+	        	url: link,
+	        	content: content,
+	        	comments:[]
+	      		})
+	  		}
+	  		
 			  db.articles.insert(result, function(err, saved){
 			  	if (err){
 			  		console.log(err)
 			  } else {
 			 	res.send(result);
+			 	console.log(result);
 			 	upsert: true;
 			 }	  	
 			});
@@ -66,10 +74,11 @@ app.post('/data', function(req, res) {
 	});
 });
 
-// find all books marked as read
+// find all articles
 app.get('/article', function(req, res) {
   db.articles.find({}, function(err, docs){
     res.json(docs);
+    console.log('Sent');
   })
 });
 
@@ -83,7 +92,7 @@ app.post('/submit', function(req, res) {
   // if we want the object to have a boolean value of false, 
   // we have to do it here, because the ajax post will convert it 
   // to a string instead of a boolean
-  comment.post = false;
+  comment.post = true;
 
   db.comments.insert(comment, function(err, book){
     if (err) {
@@ -93,6 +102,14 @@ app.post('/submit', function(req, res) {
     }
   });
 });
+
+app.get('/comment', function(req, res) {
+  db.comments.find({}, function(err, docs){
+    res.json(docs);
+    console.log(docs);
+  })
+});
+
 
 // listen on port 3000
 app.listen(3000, function() {

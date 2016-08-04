@@ -1,5 +1,3 @@
-//
-
 // Click Events
 
 //
@@ -23,7 +21,8 @@ $('#addComment').on('click', function(){
 });
 
 
-//refresh box for new article 
+// refresh box for new article 
+
 
 $(document).on('click', '.article', function(){
     var thisId = $(this).attr('data-id');
@@ -35,20 +34,17 @@ $(document).on('click', '.article', function(){
     getComment();
 });
 
+//Delete comment 
 
-
-
-// $(document).on('click', '.markunread', function(){
-//   var thisId = $(this).attr('data-id');
-//   $.ajax({
-//     type: "GET",
-//     url: '/markunread/' + thisId,
-//   });
-//   $(this).parents('tr').remove();
-//   getUnread();
-// });
-
-
+$('#delete').on('click', '.comment', function(){
+    var thisId = $(this).attr('data-id');
+    $.ajax({
+      type: "POST",
+      url: '/delete/' + thisId,
+    });
+    $(this).parents().remove();
+    getComment();
+});
 
 
 
@@ -58,10 +54,11 @@ $(document).on('click', '.article', function(){
 // Get comments and articles on screen
 
 function getComment(){
-  $('#comments').empty();
+  $('#dbComments').empty();
   $.getJSON('/comment', function(data) {
     for (var i = 0; i<data.length; i++){
-      $('#comments').prepend('<tr><td>' + data[i].comment + '</td>' + '</td><td><button class="delete" data-id="' +data[i]._id+ '">Delete</button></td></tr>');
+      $('#dbComments').prepend('<tr><td>' + data[i].comment + '</td>' + '</td><td><button class="delete" data-id="' +data[i]._id+ '">Delete</button></td></tr>');
+      console.log(data, "IMM DATTTTTAAA")
     }
   });
 }
@@ -69,10 +66,9 @@ function getComment(){
 function getArticle(){
   $('#article').empty();
   $.getJSON('/article', function(data) {
-    for (var i = 0; i<data.length; i++){
+    for (var i = 0; i<= 1; i++){
       $('#article').prepend(data[i].title);
     }
-    // $('#read').prepend('<tr><th>Title</th><th>Author</th><th>Read/Unread</th></tr>');
   });
 }
 

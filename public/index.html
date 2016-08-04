@@ -43,13 +43,15 @@
     border-style: inset;
     border-width: 5px;
     width: 95%;
-    height: 35%;
+    height: 75%;
+    margin: auto;
   }
 
   input {
     width:95%;
     height:30px;
     font-size: 18px;
+    margin-top: 5px;
   }
   </style>
 </head>
@@ -58,20 +60,25 @@
         <h1>Breaking News! </h1>
           <h2><i>Scraping Together Up to the Minute News Coverage!</i></h2>
       <div id="article">
-          
+
+            <div class="articleNav">
+              <button class="back">Back</button>
+              <button class="next">Next</button>
+            </div>
+
       </div>
 
       <div id="comments">
 
           <table id="dbComments">
-              <button type="submit" id="delete">Delete</button>
-          </table>
+              <!-- <button type="submit" id="delete">Delete</button>
+ -->      </table>
 
           <form id="enterComment">
 
-              <input type="text" id="comment" placeholder="Enter Comment"/>
+            <input type="text" id="comment" placeholder="Enter Comment"/>
 
-              <button type="submit" id="addComment">Add Comment</button>
+            <button type="submit" id="addComment">Add Comment</button>
 
           </form>
       
@@ -79,7 +86,7 @@
 
     </div>
   </div>
-  
+
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 <script src="app.js"></script>
 </body>
